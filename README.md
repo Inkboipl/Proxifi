@@ -1,2 +1,2 @@
 # Proxifi
- Nsfw blocker for your desktop.
+Nsfw blocker for your desktop.
