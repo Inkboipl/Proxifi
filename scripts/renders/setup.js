@@ -15,8 +15,7 @@ function enterapp(){
 
 function closewindow(){
     const notification = new Notification('Proxifi works in background', {body:`Without that, we wouldn't be able to work at all.`, icon:`https://github.com/thejimi/filtru-static-website/blob/main/favicon.png?raw=true`});
-    const ipc = require('electron').ipcRenderer;
-    ipc.send('closeWindow',`true`);
+    ipcSend('closeWindow', 'true')
 }
 
 //Website blocker module
