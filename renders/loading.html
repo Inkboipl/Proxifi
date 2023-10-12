@@ -1,0 +1,43 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Proxifi (loading...)</title>
+    <link rel="stylesheet" href="style1.css">
+</head>
+<style>
+    body {
+        background-color: #202020;
+        color: white;
+    }
+</style>
+
+<body>
+    <div class="centered">
+        <img class="animate-flicker" style="width:200px;height:200px; margin-bottom:20px; -webkit-user-select: none; -webkit-app-region: drag;" src="./cdn/logo.png">
+        <br>
+        <div class="lds-ripple"><div></div><div></div></div>
+    </div>
+</body>
+
+<script>
+    var loadingWhat = localStorage.getItem('TEMP_loadingTo')
+    document.title = `Loading ${loadingWhat}`
+    if(loadingWhat === 'setup'){
+        setTimeout(() => {
+            window.location.href = ('./setup.html')
+        }, 2000);
+    }
+    if(loadingWhat === 'app'){
+        setTimeout(() => {
+            window.location.href = ('./app.html')
+        }, 2000);
+    }
+    if(!loadingWhat){
+        setTimeout(() => {
+            alert("It seems like you're stuck on a loading page, try restarting the app.")
+        }, 5000);
+    }
+</script>
+
+</html>

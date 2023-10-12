@@ -1,14 +1,34 @@
 const { app, BrowserWindow } = require('electron')
 const path = require('node:path')
 
+const electron = require('electron'),
+ipc = electron.ipcMain;
+
 function createWindow () {
   const win = new BrowserWindow({
     width: 800,
     height: 600,
-    autoHideMenuBar: true
+    autoHideMenuBar: true,
+    titleBarOverlay:true,
+    minHeight: 600,
+    minWidth: 800,
+    webPreferences:{
+        nodeIntegration: true,
+        enableRemoteModule: true,
+        contextIsolation: false,
+    }
   })
 
-  win.loadFile('renders/index.html')
+  ipc.on('closeWindow', (event, args) => {
+    if(args === 'true'){
+        win.hide()
+        setTimeout(() => {
+            console.log('.')
+        }, 2000);
+    }
+});
+
+  win.loadFile('renders/landing.html')
 }
 
 app.whenReady().then(() => {
