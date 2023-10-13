@@ -46,3 +46,14 @@ app.on('window-all-closed', () => {
     app.quit()
   }
 })
+
+//Website blocker setup
+const websiteblocker_actions = require('./scripts/modules/websiteblocker/!_actions')
+ipc.on('module_websiteblocker_setup', async (event, args) => {
+  if(args === 'true'){
+      await websiteblocker_actions.setup()
+  }
+});
+ipc.on('websiteblocker_setup_change', async (event, args) => {
+  console.log(args)
+});

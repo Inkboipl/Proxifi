@@ -1,9 +1,44 @@
 {
+  "name": "Proxifi",
+  "version": "0.0.1",
+  "license": "MIT",
+  "description": "Nsfw blocker for your desktop.",
+  "author": "thejimi",
+  "main": "./index.js",
+  "build": {
+    "dmg": {
+      "contents": [
+        {
+          "x": 110,
+          "y": 150
+        },
+        {
+          "x": 240,
+          "y": 150,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb"
+      ]
+    },
+    "win": {
+      "target": "squirrel",
+      "icon": "build/icon.ico"
+    }
+  },
   "scripts": {
     "start": "electron ."
   },
   "dependencies": {
-    "custom-electron-titlebar": "^4.2.7",
-    "electron": "^27.0.0"
+    "electron-builder-squirrel-windows": "^24.7.0"
+  },
+  "devDependencies": {
+    "electron": "latest",
+    "electron-builder": "latest"
   }
 }

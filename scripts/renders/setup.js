@@ -1,3 +1,12 @@
+function check(){
+    if(localStorage.getItem("TEMP_landing_scene") === "scene_3"){
+        console.log("sex")
+        changeScene_noanim('scene_1', 'scene_3')
+        confettiBegin()
+        localStorage.removeItem("TEMP_landing_scene")
+    }
+}
+
 function setupBegin(){
     changeScene('scene_1', 'scene_2')
 }
@@ -14,15 +23,15 @@ function enterapp(){
 }
 
 function closewindow(){
-    const notification = new Notification('Proxifi works in background', {body:`Without that, we wouldn't be able to work at all.`, icon:`https://github.com/thejimi/filtru-static-website/blob/main/favicon.png?raw=true`});
+    notify('Proxifi works in background', 'Without that, we wouldn\'t be able to work at all.', 'default')
     ipcSend('closeWindow', 'true')
 }
 
 //Website blocker module
 function websiteblocker_nextStep(){
     newtemp("module_websiteblocker", "enabled")
-    changeScene('scene_2', 'scene_3')
-    confettiBegin()
+    newtemp('loadingTo', 'module_websiteblocker_setup')
+    window.location.href = ('./loading.html')
 }
 
 function websiteblocker_disable(){

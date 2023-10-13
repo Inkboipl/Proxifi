@@ -4,6 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proxifi (loading...)</title>
     <link rel="stylesheet" href="style1.css">
+
+    <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
+
 </head>
 <style>
     body {
@@ -16,13 +19,23 @@
     <div class="centered">
         <img class="animate-flicker" style="width:200px;height:200px; margin-bottom:20px; -webkit-user-select: none; -webkit-app-region: drag;" src="./cdn/logo.png">
         <br>
-        <div class="lds-ripple"><div></div><div></div></div>
+        <div id="loadinganimation" class="lds-ripple"><div></div><div></div></div>
+        <h1 id="loadingtext" style="font-size:20px; margin-top:30px; margin-bottom:0px"></h1>
+        <h1 id="additionalinfo" style="font-size:15px; margin-top:10px; margin-bottom:0px"></h1>
     </div>
 </body>
 
+<script src="../scripts/renders/setup.js"></script>
+<script src="../scripts/renders/changeScene.js"></script>
+<script src="../scripts/renders/modals.js"></script>
+<script src="../scripts/renders/tempStorage.js"></script>
+<script src="../scripts/renders/ipc.js"></script>
+<script src="../scripts/renders/notification.js"></script>
+
 <script>
     var loadingWhat = localStorage.getItem('TEMP_loadingTo')
-    document.title = `Loading ${loadingWhat}`
+    document.title = `Working on '${loadingWhat}'`
+    localStorage.removeItem('TEMP_loadingTo')
     if(loadingWhat === 'setup'){
         setTimeout(() => {
             window.location.href = ('./setup.html')
@@ -32,6 +45,20 @@
         setTimeout(() => {
             window.location.href = ('./app.html')
         }, 2000);
+    }
+    if(loadingWhat === 'module_websiteblocker_setup'){
+        document.getElementById("loadinganimation").style.display = `none`
+        document.getElementById("loadingtext").style.display = `block`
+        document.getElementById("additionalinfo").style.display = `block`
+        document.getElementById('loadingtext').innerHTML = `setting up the website blocker, this might take a while`
+        document.getElementById('additionalinfo').innerHTML = `you will have to accept admin permissions when prompted`
+
+        ipcSend("module_websiteblocker_setup", 'true')
+
+        setTimeout(() => {
+            newtemp("landing_scene", 'scene_3')
+            window.location.href = ('./landing.html')
+        }, 15000);
     }
     if(!loadingWhat){
         setTimeout(() => {
