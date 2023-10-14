@@ -1,12 +1,3 @@
-function check(){
-    if(localStorage.getItem("TEMP_landing_scene") === "scene_3"){
-        console.log("sex")
-        changeScene_noanim('scene_1', 'scene_3')
-        confettiBegin()
-        localStorage.removeItem("TEMP_landing_scene")
-    }
-}
-
 function setupBegin(){
     changeScene('scene_1', 'scene_2')
 }
@@ -23,7 +14,7 @@ function enterapp(){
 }
 
 function closewindow(){
-    notify('Proxifi works in background', 'Without that, we wouldn\'t be able to work at all.', 'default')
+    notify('Filtru has been closed', 'See ya!', 'default')
     ipcSend('closeWindow', 'true')
 }
 

@@ -9,5 +9,23 @@ const setup = async () => {
     await wait(3000)
     injectHostsFile()
 }
+
+const disable = async () => {
+    const { execFile } = require('child_process');
+
+    execFile(__dirname + '/Proxifi_DisablePornBlocker.bat', (error, stdout, stderr) => {
+      if (error) {
+        console.error(`error: ${error.message}`);
+        return;
+      }
+    
+      if (stderr) {
+        console.error(`stderr: ${stderr}`);
+        return;
+      }
+    
+      console.log(`stdout:\n${stdout}`);
+    });
+}
       
-module.exports = { setup }
+module.exports = { setup, disable }

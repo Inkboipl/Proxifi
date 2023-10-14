@@ -31,6 +31,7 @@
 <script src="../scripts/renders/tempStorage.js"></script>
 <script src="../scripts/renders/ipc.js"></script>
 <script src="../scripts/renders/notification.js"></script>
+<script src="../scripts/renders/editSetting.js"></script>
 
 <script>
     var loadingWhat = localStorage.getItem('TEMP_loadingTo')
@@ -50,20 +51,36 @@
         document.getElementById("loadinganimation").style.display = `none`
         document.getElementById("loadingtext").style.display = `block`
         document.getElementById("additionalinfo").style.display = `block`
-        document.getElementById('loadingtext').innerHTML = `setting up the website blocker, this might take a while`
+        document.getElementById('loadingtext').innerHTML = `setting up the nsfw blocker, this might take a while`
         document.getElementById('additionalinfo').innerHTML = `you will have to accept admin permissions when prompted`
 
         ipcSend("module_websiteblocker_setup", 'true')
+        ipcSend("editSetting_WebsiteBlockerEnabled", "true")
 
         setTimeout(() => {
             newtemp("landing_scene", 'scene_3')
             window.location.href = ('./landing.html')
         }, 15000);
     }
+    if(loadingWhat === 'module_websiteblocker_disable'){
+        document.getElementById("loadinganimation").style.display = `none`
+        document.getElementById("loadingtext").style.display = `block`
+        document.getElementById("additionalinfo").style.display = `block`
+        document.getElementById('loadingtext').innerHTML = `disabling the nsfw blocker, this might take a while`
+        document.getElementById('additionalinfo').innerHTML = `you will have to accept admin permissions when prompted`
+
+        ipcSend("module_websiteblocker_disable", 'true')
+        ipcSend("editSetting_WebsiteBlockerEnabled", "false")
+
+        setTimeout(() => {
+            newtemp("justTurnedOffBlocker", "true")
+            window.location.href = ('./app.html')
+        }, 15000);
+    }
     if(!loadingWhat){
         setTimeout(() => {
-            alert("It seems like you're stuck on a loading page, try restarting the app.")
-        }, 5000);
+            window.location.href = ('./app.html')
+        }, 2000);
     }
 </script>
 

@@ -1,0 +1,61 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Info</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>window.$ = window.jQuery = require("../scripts/jquery.js")</script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body class="dark" style="background-color: #202020;">
+    <section style="background-color: #202020;">
+        <div class="container px-6 py-12 mx-auto">
+            <button onclick="window.location.href = ('./app.html')" class="bg-black px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform rounded-lg focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+                <i class="fa-solid fa-house"></i>&nbsp;&nbsp;Home
+            </button>
+            <button class="bg-black px-6 py-2 font-medium tracking-wide text-white capitalize transition-colors duration-300 transform rounded-lg focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-80">
+                <i class="fa-solid fa-magnifying-glass"></i>&nbsp;&nbsp;More info on our website
+            </button>
+
+            <div class="mt-8 space-y-8 lg:mt-12">
+                <div class="p-8 bg-gray-100 rounded-lg dark:bg-black">
+                    <div class="flex items-center justify-between w-full">
+                        <h1 class="font-semibold text-gray-700 dark:text-white">The nsfw blocker isn't working</h1>
+                    </div>
+    
+                    <p class="mt-6 text-sm text-gray-500 dark:text-gray-300">
+                        Try restarting your pc, if that didn't work, here's what you can do:
+                        <br>
+                        &nbsp;&nbsp;1. Disable and enable the blocker
+                        <br>
+                        &nbsp;&nbsp;2. Clear your browser's cache
+                        <br>
+                        &nbsp;&nbsp;3. Wait 24 hours, maybe your pc needs some more time
+                        <br>
+                        &nbsp;&nbsp;4. Make sure you're on Windows, Proxifi doesn't work on Mac/Linux yet
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+<script src="../scripts/renders/motivation.js"></script>
+<script src="../scripts/renders/setup.js"></script>
+<script src="../scripts/renders/changeScene.js"></script>
+<script src="../scripts/renders/modals.js"></script>
+<script src="../scripts/renders/tempStorage.js"></script>
+<script src="../scripts/renders/ipc.js"></script>
+<script src="../scripts/renders/notification.js"></script>
+<script src="../scripts/renders/editSetting.js"></script>
+
+</html>

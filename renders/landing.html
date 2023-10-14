@@ -28,7 +28,12 @@
 
 <body style="animation:fadeIn 3s" onload="check()">
     <script src="../scripts/renders/confetti.js"></script>
-    <div id="scene_1" class="centered">
+    <div id="scene_0" class="centered">
+        <div id="loadinganimation" class="lds-ripple"><div></div><div></div></div>
+        <h1 id="loadingtext" style="font-size:20px; margin-top:30px; margin-bottom:0px"></h1>
+        <h1 id="additionalinfo" style="font-size:15px; margin-top:10px; margin-bottom:0px"></h1>
+    </div>
+    <div id="scene_1" class="centered hidden opacity-0">
         <h1 style="font-size:50px; margin-top:30px; margin-bottom:0px">welcome to <strong><span class="highlight">proxifi</span></strong></h1>
         <h1 style="font-size:20px; margin-top:10px; margin-bottom:0px">block unwanted content <span class="highlight">entirely</span> from your <span class="highlight">computer</span></h1>
         <p>&nbsp;</p>
@@ -40,7 +45,6 @@
         <h1 style="font-size:15px; margin-top:10px; margin-bottom:0px">Filtru automatically blocks thousands of porn/nsfw sites</h1>
         <h1 style="font-size:15px; margin-top:10px; margin-bottom:20px">You can also add your own websites you'd like to block</h1>
         <button onclick="websiteblocker_nextStep()" class="button-18" role="button"><i class="fa-solid fa-forward"></i>&nbsp;&nbsp;next</button>
-        <button onclick="websiteblocker_disable()" class="button-18-1" role="button">disable this module</button>
         <button onclick="websiteblocker_addCustomWebsites()" class="button-18-1" role="button"><i class="fa-solid fa-plus"></i>&nbsp;&nbsp;add my own</button>
     </div>
 
@@ -54,7 +58,7 @@
         <h1 style="font-size:70px; margin-top:30px; margin-bottom:0px">welcome!</h1>
         <h1 style="font-size:15px; margin-top:10px; margin-bottom:20px">you've made a great decision, we promise to not dissapoint you.</h1>
         <button onclick="enterapp()" class="button-18" role="button"><i class="fa-solid fa-rocket"></i>&nbsp;&nbsp;enter the app</button>
-        <button onclick="closewindow()" class="button-18-1" role="button"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;close this window</button>
+        <button onclick="closewindow()" class="button-18-1" role="button"><i class="fa-solid fa-right-from-bracket"></i>&nbsp;&nbsp;close the app</button>
     </div>
 
     <div x-data="{ isOpen: false }" id="modal_addWebsitesToBlocker" class="relative flex justify-center hidden opacity-0">
@@ -110,11 +114,27 @@
     </div>
 </body>
 
+<script>
+setTimeout(() => {
+    if(localStorage.getItem("TEMP_landing_scene") === "scene_3"){
+        console.log("sex")
+        changeScene_noanim('scene_0', 'scene_3')
+        confettiBegin()
+        localStorage.removeItem("TEMP_landing_scene")
+
+        ipcSend("editSetting_UserCompletedSetup", 'true')
+    } else {
+        changeScene_noanim('scene_0', 'scene_1')
+    }
+}, 2000);
+</script>
+
 <script src="../scripts/renders/setup.js"></script>
 <script src="../scripts/renders/changeScene.js"></script>
 <script src="../scripts/renders/modals.js"></script>
 <script src="../scripts/renders/tempStorage.js"></script>
 <script src="../scripts/renders/ipc.js"></script>
 <script src="../scripts/renders/notification.js"></script>
+<script src="../scripts/renders/editSetting.js"></script>
 
 </html>

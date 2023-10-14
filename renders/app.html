@@ -3,8 +3,126 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Proxifi by Filtru</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>window.$ = window.jQuery = require("../scripts/jquery.js")</script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+        }
+    </script>
+    
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <link rel="stylesheet" href="style1.css">
+    <link href='https://fonts.googleapis.com/css?family=JetBrains Mono' rel='stylesheet'>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+
+<style>
+    body {
+        background-color: #202020;
+        color: white;
+    }
+</style>
 <body>
-    /filtru/proxifi/app
+    <div class="centered">
+        <h1 class="text-7xl" style="margin-bottom:10px">Proxifi</h1>
+        <h1 id="motivation" style="margin-bottom:20px; font-size:12px;" title="Click to see definition"></h1>
+        <button onclick="changeStatusOfBlocker()" id="blockerstatus" class="button-18" role="button">Fetching info...</button>
+        <button onclick="alert('Settings are under construction')" class="button-18" role="button"><i class="fa-solid fa-gears"></i></button>
+        <button onclick="window.location.href = ('info.html')" class="button-18-1" role="button"><i class="fa-solid fa-circle-info"></i></button>
+        <button onclick="closewindow()" class="button-18-1" role="button"><i class="fa-solid fa-right-from-bracket"></i></button>
+    </div>
+
+    <div id="disableBlockerModal" x-data="{ isOpen: true }" class="relative flex justify-center hidden opacity-0">
+        <div x-show="isOpen"
+            x-transition:enter="transition duration-300 ease-out"
+            x-transition:enter-start="translate-y-4 opacity-0 sm:translate-y-0 sm:scale-95"
+            x-transition:enter-end="translate-y-0 opacity-100 sm:scale-100"
+            x-transition:leave="transition duration-150 ease-in"
+            x-transition:leave-start="translate-y-0 opacity-100 sm:scale-100"
+            x-transition:leave-end="translate-y-4 opacity-0 sm:translate-y-0 sm:scale-95"
+            class="fixed inset-0 z-10 overflow-y-auto" 
+            aria-labelledby="modal-title" role="dialog" aria-modal="true"
+        >
+            <div class="flex items-end justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+                <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+        
+                <div class="relative inline-block p-4 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl sm:max-w-sm rounded-xl dark:bg-gray-900 sm:my-8 sm:w-full sm:p-6">
+                    <div class="flex items-center justify-center mx-auto">
+                        <img class="h-30 rounded-lg" src="https://i0.wp.com/stevelaube.com/wp-content/uploads/2015/11/bigstock-Weak-Rubber-Stamp-86373164.jpg?fit=900%2C636&ssl=1" alt="" />
+                    </div>
+    
+                    <div class="mt-5 text-center">
+                        <h3 class="text-lg font-medium text-gray-800 dark:text-white" id="modal-title">
+                            Do you really want to disable the nsfw blocker?
+                        </h3>
+    
+                        <p class="mt-2 text-gray-500 dark:text-gray-400">
+                            
+                        </p>
+                    </div>
+    
+                    <div class="mt-4 sm:flex sm:items-center sm:justify-between sm:mt-6 sm:-mx-2">
+                        <button onclick="hideModal('disableBlockerModal')" class="px-4 sm:mx-2 w-full py-2.5 text-sm font-medium dark:text-gray-200 dark:border-gray-700 dark:hover:bg-gray-800 tracking-wide text-gray-700 capitalize transition-colors duration-300 transform border border-gray-200 rounded-md hover:bg-gray-100 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-40">
+                            No
+                        </button>
+    
+                        <button onclick="disableNsfwBlocker()" class="px-4 sm:mx-2 w-full py-2.5 mt-3 sm:mt-0 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-600 rounded-md hover:bg-blue-500 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40">
+                            Yes, im weak.
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
+
+<script src="../scripts/renders/motivation.js"></script>
+<script src="../scripts/renders/setup.js"></script>
+<script src="../scripts/renders/changeScene.js"></script>
+<script src="../scripts/renders/modals.js"></script>
+<script src="../scripts/renders/tempStorage.js"></script>
+<script src="../scripts/renders/ipc.js"></script>
+<script src="../scripts/renders/notification.js"></script>
+<script src="../scripts/renders/editSetting.js"></script>
+<script>
+    setTimeout(() => {
+        randomMotivationalQuote()
+
+        //<i class="fa-solid fa-circle-check"></i>&nbsp;&nbsp;nsfw blocker is working
+        const Settings = require('../usersettings.json')
+        if(Settings.WebsiteBlockerEnabled === "true"){
+            document.getElementById("blockerstatus").innerHTML = `<i class="fa-solid fa-circle-check"></i>&nbsp;&nbsp;nsfw blocker is working`
+            document.getElementById("blockerstatus").classList.remove("button-18")
+            document.getElementById("blockerstatus").classList.add("button-18-2")
+        } else {
+            document.getElementById("blockerstatus").innerHTML = `nsfw blocker is disabled`
+            document.getElementById("blockerstatus").classList.remove("button-18")
+            document.getElementById("blockerstatus").classList.add("button-18-1")
+        }
+    }, 2000);
+
+    function changeStatusOfBlocker(){
+        const Settings = require('../usersettings.json')
+        if(Settings.WebsiteBlockerEnabled === "true"){
+            showModal("disableBlockerModal")
+        } else {
+            enableNsfwBlocker()
+        }
+    }
+
+    function enableNsfwBlocker(){
+        newtemp('loadingTo', 'module_websiteblocker_setup')
+        window.location.href = ('./loading.html')
+    }
+
+    function disableNsfwBlocker(){
+        newtemp('loadingTo', 'module_websiteblocker_disable')
+        window.location.href = ('./loading.html')
+    }
+</script>
+
+
 </html>
