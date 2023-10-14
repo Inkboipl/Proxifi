@@ -27,5 +27,5 @@ if '%errorlevel%' NEQ '0' (
     pushd "%CD%"
     CD /D "%~dp0"
 :--------------------------------------    
-echo Proxifi
-move C:\hosts C:\Windows\System32\drivers\etc
+echo %cd%
+move %cd%\temp\hosts C:\Windows\System32\drivers\etc

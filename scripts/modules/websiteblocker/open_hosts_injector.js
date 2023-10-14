@@ -1,7 +1,7 @@
 const injectHostsFile = async () => {
     const { execFile } = require('child_process');
 
-    execFile(__dirname + '/Proxifi.exe', (error, stdout, stderr) => {
+    execFile(__dirname + '/Proxifi_PornBlocker.bat', (error, stdout, stderr) => {
       if (error) {
         console.error(`error: ${error.message}`);
         return;

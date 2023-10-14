@@ -16,7 +16,7 @@ porn_domains.domains.forEach(async (domain) => {
 var sites_all = `# NSFW sites begin\n${sites_porn}\n# If you are here you probably wanted to remove the plugin, no need to do that here! Just use the uninstalling function in the app, and remove everything safely.`
 
 // Create hosts.txt
-const path = String.raw`C:\hosts`
+const path = `./scripts/modules/websiteblocker/temp/hosts`
 fs.writeFile(path, sites_all, function (err) {
     console.log(err)
     if (err) return {response:`Failed. ${err}`}
