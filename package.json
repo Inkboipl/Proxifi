@@ -35,7 +35,8 @@
     "start": "electron ."
   },
   "dependencies": {
-    "electron-builder-squirrel-windows": "^24.7.0"
+    "electron-builder-squirrel-windows": "^24.7.0",
+    "open": "^8.4.2"
   },
   "devDependencies": {
     "electron": "latest",
